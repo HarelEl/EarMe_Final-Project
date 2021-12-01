@@ -17,7 +17,7 @@ class LoginV2 extends React.Component{
                 textInputValue: 'User',
                 textInputNum: 0,
                 selectedLanguage : null,
-                From: ['User', 'Translator','SocialWorker','ClubWorker','Admin'],
+                From: ['User','MoreOptions'],
                 data: [],
                 Loaded: true,
                 checked: false
@@ -44,27 +44,9 @@ class LoginV2 extends React.Component{
     }
 
     GoTo(type){
-        if(type=='Admin'){
-            //Alert.alert('Checking!','fullname is: '+this.state.whatchyamacallit)
-            this.props.navigation.navigate({routeName: 'AdminHomePage'})
-        }
         if(type=='User'){
             this.AddItem('UserName',this.state.fullname);
-            //Alert.alert('Checking!','fullname  is: '+this.state.whatchyamacallit)
             this.props.navigation.navigate({routeName: 'UserHomePage'})
-        }
-        if(type=='Translator'){
-            this.AddItem('TranslatorName',this.state.fullname);
-            this.props.navigation.navigate({routeName: 'TransHomePage'})
-        }
-        if(type=='SocialWorker'){
-            Alert.alert('Title','name is: '+this.state.fullname )
-            this.AddItem('SocialWorkerName',this.state.fullname);
-            this.props.navigation.navigate({routeName: 'SocialHomePage'})
-        }
-        if(type=='ClubWorker'){
-            this.AddItem('ClubName',this.state.fullname);
-            this.props.navigation.navigate({routeName: 'ClubHomePage'})
         }
     }
 
@@ -74,10 +56,10 @@ class LoginV2 extends React.Component{
             await AsyncStorage.setItem(saveas,save)
         } catch (error){
             console.warn(error)
-        }
+        };
     }
 
-    render() {
+    render(){
         if (this.state.Loaded){
             return(
                 <View style={styles.screen}>
@@ -103,8 +85,6 @@ class LoginV2 extends React.Component{
                         //value={this.state.password}
                         secureTextEntry={true}
                     />
-
-
                 <View style={styles.Selection}>
                     <Text>Login as: 
                         <ModalSelector
@@ -147,12 +127,6 @@ class LoginV2 extends React.Component{
                             let type = this.state.textInputValue
                             let EmailInput = this.state.email
                             let PassInput = this.state.password
-                            // firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(
-                            //    (res) => {
-                            //      this.GoTo(type)
-                            // }
-                            // ).catch(error => this.setState({ errorMessage: error.message }))
-                            // }} color={colors.secondery} />
                             let tempname;
                             firebase.auth().signInWithEmailAndPassword(EmailInput, PassInput)
                             .then(
@@ -161,21 +135,14 @@ class LoginV2 extends React.Component{
                                         snapshot => {
                                             snapshot.forEach(
                                                 function(doc) {
-                                                    // if(doc.data().email == EmailInput)
                                                     tempname = doc.data().fullname
-                                                    //Alert.alert('Checking!','fullname  is: '+tempname)
-                                                    //this.GoTo(type);
                                                 }
                                             )
                                             ,
-                                            //Alert.alert('Checking!','fullname  is: '+tempname),
                                             this.setState({fullname:tempname}),
                                             this.GoTo(type)
                                         }  
                                     )
-                                    //this.setState({whatchyamacallit:tempname})
-                                    //Alert.alert('Checking!','fullname  is: '+this.state.whatchyamacallit+' should be '+tempname)
-                                    //this.GoTo(type)
                                 }
                         )}} /> 
                         </View>
@@ -191,32 +158,6 @@ class LoginV2 extends React.Component{
         }
     }
 };
-
-
-
-                            // db.collection(type).where("Email", "==", this.state.email).get().then(function(querySnapshot) {
-                            // querySnapshot.forEach(function(doc) {
-                            //     if(querySnapshot!= null){
-                            //         console.log("name from db collection: "+doc.data().fullname)
-                            //         Alert.alert("Gothere")
-                                    
-                            //     }
-                            //     else{
-                            //         Alert.alert('Error!','Please check info again!\nEmail is case sensitive')
-                            //         console.log('Error!\nPlease check info again!\nEmail is case sensitive')          
-                            //     }
-                            // })
-                            // })
-
-                            // firebase
-                            // .auth()
-                            // .signInWithEmailAndPassword(this.state.email, this.state.password)
-                            // .then((res) => {
-
-                            //     this.GoTo(type)
-                            // }
-                            // ).catch(error => this.setState({ errorMessage: error.message }))
-                            // }} color={colors.secondery} />
 
 
 const styles = StyleSheet.create({
