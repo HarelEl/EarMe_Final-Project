@@ -21,35 +21,10 @@ class Main extends React.Component {
                     }} color={colors.secondery} />
             </View>
             <View style={styles.buttonContainer}>
-                <Button title="Speak" onPress={() => {
-                    this.props.navigation.navigate({routeName: 'TextToSpeach'})
-                    }} color={colors.secondery} />
-            </View>
-            <View style={styles.buttonContainer}>
                 <Button title="Create User" onPress={() => {
                     this.props.navigation.navigate({routeName: 'Request2'})
                     }} color={colors.secondery} />
             </View>
-            <View style={styles.buttonContainer}>
-                <Button title="Create Translator User" onPress={() => {
-                    this.props.navigation.navigate({routeName: 'Request3'})
-                    }} color={colors.secondery} />
-            </View>
-            <View style={styles.buttonContainer}>
-                <Button title="Verify User" onPress={() => {
-                    this.props.navigation.navigate({routeName: 'VerifyUser'})
-                    }} color={colors.secondery} />
-            </View>
-            <View style={styles.buttonContainer}>
-            <Button title="Login as Guest" onPress={() => {
-                firebase.auth().signInAnonymously().then(()=>{
-                    this.props.navigation.navigate({routeName: 'GuestHomePage'})
-                }) .catch((error) =>{
-                    Alert.alert('Error!',error)
-                })
-                } } color={colors.secondery} />
-            </View>
-
         </View>
         </View>
     );
